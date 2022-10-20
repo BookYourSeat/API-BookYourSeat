@@ -4,33 +4,48 @@ import java.util.UUID;
 
 public class User {
     private UUID UserId;
-    private String Name;
+    private String FirstName;
+    private String LastName;
+    private String Email;
     private String Password;
 
-    public User(){}
-
-    public void SetUserID(UUID id){
-        this.UserId = id;
+    public UUID getUserId() {
+        return UserId;
     }
 
-    public UUID GetUserId(){
-        return this.UserId;
+    public void setUserId(UUID userId) {
+        UserId = userId;
     }
 
-    public void SetName(String name){
-        this.Name = name;
+    public String getFirstName() {
+        return FirstName;
     }
 
-    public String GetName(){
-        return this.Name;
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
     }
 
-    public void SetPassword(String password){
-        this.Password = password;
+    public String getLastName() {
+        return LastName;
     }
 
-    public String GetPassword(){
-        return this.Password;
+    public void setLastName(String lastName) {
+        LastName = lastName;
     }
 
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String password) {
+        Password = password;
+    }
 }
