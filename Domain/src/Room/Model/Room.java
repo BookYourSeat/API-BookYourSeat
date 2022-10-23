@@ -1,15 +1,18 @@
 package Room.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import java.util.UUID;
 
+@Entity
+@Table(name="Room")
 public class Room {
-
+    @Id
     private UUID RoomId;
-
     private UUID idBuilding;
-
     private String Description;
-
     private String Map;
 
     public UUID getRoomId() {

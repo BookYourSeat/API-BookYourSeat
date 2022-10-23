@@ -1,8 +1,15 @@
 package Seat.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import java.util.UUID;
 
+@Entity
+@Table(name="Seat")
 public class Seat {
+    @Id
     private UUID SeatId;
     private UUID IdType;
     private UUID IdRoom;

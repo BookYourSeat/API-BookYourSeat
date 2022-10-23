@@ -1,18 +1,20 @@
 package Position.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import java.util.UUID;
 
+@Entity
+@Table(name="Position")
 public class Position {
-
+    @Id
     private UUID PositionId;
-
-    private double TopLongitude;
-
-    private double TopLatitude;
-
-    private double BottomLongitude;
-
-    private double BottomLatitude;
+    private float TopLongitude;
+    private float TopLatitude;
+    private float BottomLongitude;
+    private float BottomLatitude;
 
     public UUID getPositionId() {
         return PositionId;
@@ -22,35 +24,35 @@ public class Position {
         PositionId = positionId;
     }
 
-    public double getTopLongitude() {
+    public float getTopLongitude() {
         return TopLongitude;
     }
 
-    public void setTopLongitude(double topLongitude) {
+    public void setTopLongitude(float topLongitude) {
         TopLongitude = topLongitude;
     }
 
-    public double getTopLatitude() {
+    public float getTopLatitude() {
         return TopLatitude;
     }
 
-    public void setTopLatitude(double topLatitude) {
+    public void setTopLatitude(float topLatitude) {
         TopLatitude = topLatitude;
     }
 
-    public double getBottomLongitude() {
+    public float getBottomLongitude() {
         return BottomLongitude;
     }
 
-    public void setBottomLongitude(double bottomLongitude) {
+    public void setBottomLongitude(float bottomLongitude) {
         BottomLongitude = bottomLongitude;
     }
 
-    public double getBottomLatitude() {
+    public float getBottomLatitude() {
         return BottomLatitude;
     }
 
-    public void setBottomLatitude(double bottomLatitude) {
+    public void setBottomLatitude(float bottomLatitude) {
         BottomLatitude = bottomLatitude;
     }
 }

@@ -1,13 +1,17 @@
 package Building.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import java.util.UUID;
 
+@Entity
+@Table(name="Building")
 public class Building {
-
+    @Id
     private UUID BuildingId;
-
     private UUID idCompany;
-
     private String Description;
 
     public UUID getBuildingId() {
