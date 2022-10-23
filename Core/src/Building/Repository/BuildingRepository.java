@@ -1,4 +1,9 @@
 package Building.Repository;
 
-public class BuildingRepository {
+import Building.Repositoy.IBuildingRepository;
+
+public class BuildingRepository implements IBuildingRepository{
+
+    public BuildingRepository(){
+    }
 }

@@ -1,6 +1,7 @@
 package bookyourseat.api.Controller;
 
 import User.Model.User;
+import User.Service.IUserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/User")
 public class UserController {
+    private IUserService userService;
+
+    public UserController(IUserService userService){
+        this.userService = userService;
+    }
+
     @GetMapping("/GetById")
     public User GetUser(UUID Id) {
         User newUser = new User();

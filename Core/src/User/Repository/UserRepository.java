@@ -1,9 +1,8 @@
 package User.Repository;
 
-public class UserRepository {
-    private IUserRepository userRepository;
+public class UserRepository implements IUserRepository{
 
-    public UserRepository(IUserRepository userRepository){
-        this.userRepository = userRepository;
+    public UserRepository(){
+
     }
 }

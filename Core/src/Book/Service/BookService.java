@@ -1,4 +1,7 @@
 package Book.Service;
 
-public class BookService {
+public class BookService implements IBookService{
+
+    public BookService(){
+    }
 }

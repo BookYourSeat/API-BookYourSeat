@@ -1,4 +1,7 @@
 package Position.Repository;
 
-public class PositionRepository {
+public class PositionRepository implements IPositionRepository{
+
+    public PositionRepository(IPositionRepository positionRepository){
+    }
 }

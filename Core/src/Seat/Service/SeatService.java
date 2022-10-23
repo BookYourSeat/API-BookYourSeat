@@ -1,4 +1,7 @@
 package Seat.Service;
 
-public class SeatService {
+public class SeatService implements ISeatService{
+
+    public SeatService(){
+    }
 }

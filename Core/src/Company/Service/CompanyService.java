@@ -1,4 +1,7 @@
 package Company.Service;
 
-public class CompanyService {
+public class CompanyService implements ICompanyService{
+
+    public CompanyService(){
+    }
 }

@@ -1,4 +1,8 @@
 package Room.Service;
 
-public class RoomService {
+public class RoomService implements IRoomService{
+
+    public RoomService(){
+
+    }
 }

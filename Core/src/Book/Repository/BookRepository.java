@@ -1,4 +1,7 @@
 package Book.Repository;
 
-public class BookRepository {
+public class BookRepository implements IBookRepository{
+
+    public BookRepository(){
+    }
 }

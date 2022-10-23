@@ -1,9 +1,7 @@
 package SeatType.Service;
 
-public class SeatTypeService {
-    private ISeatTypeService seatTypeService;
+public class SeatTypeService implements ISeatTypeService{
 
-    public SeatTypeService(ISeatTypeService seatTypeService){
-        this.seatTypeService = seatTypeService;
+    public SeatTypeService(){
     }
 }

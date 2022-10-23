@@ -1,10 +1,9 @@
 package User.Service;
 
-public class UserService {
-    private IUserService userService;
+public class UserService implements IUserService {
 
-    public UserService(IUserService userService){
-        this.userService = userService;
+    public UserService(){
+
     }
 
 }
