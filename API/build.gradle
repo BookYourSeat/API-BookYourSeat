@@ -15,8 +15,9 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-jbdc'
+    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc_auth:11.2.1.x64'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    runtimeOnly 'org.testcontainers:mssqlserver'
 }
 
 tasks.named('test') {

@@ -8,5 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Domain" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-context:5.3.23" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:5.3.23" level="project" />
   </component>
 </module>
