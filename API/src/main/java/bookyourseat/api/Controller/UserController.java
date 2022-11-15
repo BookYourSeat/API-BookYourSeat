@@ -31,19 +31,16 @@ public class UserController {
 
     @PostMapping("/Post")
     public boolean Post(User user) {
-        ArrayList users = new ArrayList<User>();
         return true;
     }
 
     @PutMapping("/Put")
     public boolean Put(User user) {
-        ArrayList users = new ArrayList<User>();
         return true;
     }
 
     @DeleteMapping("/Delete")
     public boolean Delete(UUID id) {
-        ArrayList users = new ArrayList<User>();
         return true;
     }
 }
