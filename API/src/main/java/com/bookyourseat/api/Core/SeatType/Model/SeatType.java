@@ -3,15 +3,15 @@ package com.bookyourseat.api.Core.SeatType.Model;
 import java.util.UUID;
 
 public class SeatType {
-    private UUID SeatTypeId;
+    private UUID Id;
     private String Description;
 
-    public UUID getSeatTypeId() {
-        return SeatTypeId;
+    public UUID getId() {
+        return Id;
     }
 
-    public void setSeatTypeId(UUID seatTypeId) {
-        SeatTypeId = seatTypeId;
+    public void setId(UUID id) {
+        Id = id;
     }
 
     public String getDescription() {

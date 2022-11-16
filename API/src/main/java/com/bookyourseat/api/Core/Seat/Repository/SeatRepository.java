@@ -25,18 +25,18 @@ public class SeatRepository {
         String query = "SELECT * FROM [Seat]";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet set = preparedStatement.executeQuery();
-            List<Seat> users = new ArrayList<Seat>();
+            List<Seat> seats = new ArrayList<Seat>();
             while (set.next()) {
                 Seat seat = new Seat();
                 seat.setId(UUID.fromString(set.getString("Id")));
                 seat.setIdPosition(UUID.fromString(set.getString("IdPosition")));
                 seat.setIdRoom(UUID.fromString(set.getString("IdRoom")));
                 seat.setIdType(UUID.fromString(set.getString("IdType")));
-                users.add(seat);
+                seats.add(seat);
             }
-            return users;
+            return seats;
         } catch (SQLException e) {
-            throw new SQLException("Unable to get users");
+            throw new SQLException("Unable to get seats");
         }
     }
 
@@ -56,7 +56,7 @@ public class SeatRepository {
                 return seat;
             }
         } catch (SQLException e) {
-            throw new SQLException("Unable to get users");
+            throw new SQLException("Unable to get seat");
         }
         return new Seat();
     }
@@ -71,7 +71,7 @@ public class SeatRepository {
             preparedStatement.setString(3, seat.getIdType().toString());
             preparedStatement.executeUpdate();            
         } catch (SQLException e) {
-            throw new SQLException("Unable to create users");
+            throw new SQLException("Unable to create seat");
         }
         return true;
     }
@@ -87,7 +87,7 @@ public class SeatRepository {
             preparedStatement.setString(4, id.toString());
             preparedStatement.executeUpdate();            
         } catch (SQLException e) {
-            throw new SQLException("Unable to update users");
+            throw new SQLException("Unable to update seat");
         }
         return true;
     }

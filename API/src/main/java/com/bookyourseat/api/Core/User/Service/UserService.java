@@ -102,7 +102,7 @@ public class UserService {
     private Boolean ValidateUserExists(UUID id){
         try{
             User user = userRepository.GetById(id);
-            if(user == null)
+            if(user.toString().isBlank())
                 return false;
             return true;
         }

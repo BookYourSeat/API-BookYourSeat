@@ -35,7 +35,6 @@ public class UserController {
 
     @PostMapping
     public Boolean Post(@RequestBody User newUser){
-        //System.out.println(newUser.getFirstName() + " " + newUser.getLastName() + " " + newUser.getPassword());
         return userService.Post(newUser);
     }
 

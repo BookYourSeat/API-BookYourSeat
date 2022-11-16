@@ -2,21 +2,26 @@ package com.bookyourseat.api.Core.User.Model;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
+    
     private UUID Id;
     private String FirstName;
     private String LastName;
     private String Email;
     private String Password;
 
-    public UUID getUserId() {
+    @JsonProperty("Id")
+    public UUID getId() {
         return Id;
     }
 
-    public void setUserId(UUID userId) {
+    public void setId(UUID userId) {
         Id = userId;
     }
 
+    @JsonProperty("FirstName")
     public String getFirstName() {
         return FirstName;
     }
@@ -25,6 +30,7 @@ public class User {
         FirstName = firstName;
     }
 
+    @JsonProperty("LastName")
     public String getLastName() {
         return LastName;
     }
@@ -33,6 +39,7 @@ public class User {
         LastName = lastName;
     }
 
+    @JsonProperty("Email")
     public String getEmail() {
         return Email;
     }
@@ -41,6 +48,7 @@ public class User {
         Email = email;
     }
 
+    @JsonProperty("Password")
     public String getPassword() {
         return Password;
     }

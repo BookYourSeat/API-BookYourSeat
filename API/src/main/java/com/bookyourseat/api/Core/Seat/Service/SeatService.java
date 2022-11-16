@@ -83,7 +83,7 @@ public class SeatService {
     private Boolean ValidateSeatExists(UUID id){
         try{
             Seat seat = seatRepository.GetById(id);
-            if(seat == null)
+            if(seat.toString().isBlank())
                 return false;
             return true;
         }

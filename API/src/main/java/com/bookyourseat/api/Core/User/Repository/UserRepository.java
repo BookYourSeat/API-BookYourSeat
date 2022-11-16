@@ -28,7 +28,7 @@ public class UserRepository {
             List<User> users = new ArrayList<User>();
             while (set.next()) {
                 User user = new User();
-                user.setUserId(UUID.fromString(set.getString("Id")));
+                user.setId(UUID.fromString(set.getString("Id")));
                 user.setFirstName(set.getString("FirstName"));
                 user.setLastName(set.getString("LastName"));
                 user.setEmail(set.getString("Email"));
@@ -50,7 +50,7 @@ public class UserRepository {
             ResultSet set = preparedStatement.executeQuery();
             if (set.next()) {
                 User user = new User();
-                user.setUserId(UUID.fromString(set.getString("Id")));
+                user.setId(UUID.fromString(set.getString("Id")));
                 user.setFirstName(set.getString("FirstName"));
                 user.setLastName(set.getString("LastName"));
                 user.setEmail(set.getString("Email"));
