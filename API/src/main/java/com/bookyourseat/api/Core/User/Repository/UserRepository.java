@@ -44,8 +44,9 @@ public class UserRepository {
     public User GetById(UUID id) throws SQLException {
         Connection connection = connector.getConnection();
     
-        String query = "SELECT * FROM [User] WHERE Id = '" + id.toString() + "'";
+        String query = "SELECT * FROM [User] WHERE Id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, id.toString());
             ResultSet set = preparedStatement.executeQuery();
             if (set.next()) {
                 User user = new User();
@@ -57,8 +58,54 @@ public class UserRepository {
                 return user;
             }
         } catch (SQLException e) {
-            throw new SQLException("Unable to get users");
+            throw new SQLException("Unable to get user");
         }
         return new User();
+    }
+
+    public Boolean Post(User user) throws SQLException {
+        Connection connection = connector.getConnection();
+
+        String query = "Insert into [User] ([Id],[FirstName],[LastName],[Email],[Password]) VALUES (NEWID(), ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, Integer.toString(user.getPassword().hashCode()));
+            preparedStatement.executeUpdate();            
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new SQLException("Unable to create user");
+        }
+        return true;
+    }
+
+    public Boolean Put(UUID id, User user) throws SQLException {
+        Connection connection = connector.getConnection();
+
+        String query = "Update [User] SET [FirstName] = ?,[LastName] = ?,[Email] = ?,[Password] = ? where [Id] = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, id.toString());
+            preparedStatement.executeUpdate();            
+        } catch (SQLException e) {
+            throw new SQLException("Unable to update user");
+        }
+        return true;
+    }
+
+    public Boolean Delete(UUID id) throws SQLException {
+        Connection connection = connector.getConnection();
+    
+        String query = "Delete from [User] where [Id] = '" + id.toString() + "'";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.executeUpdate();            
+        } catch (SQLException e) {
+            throw new SQLException("Unable to delete user");
+        }
+        return true;
     }
 }

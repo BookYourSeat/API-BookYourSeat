@@ -13,39 +13,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookyourseat.api.Core.User.Model.User;
-import com.bookyourseat.api.Core.User.Service.UserService;
+import com.bookyourseat.api.Core.Seat.Model.Seat;
+import com.bookyourseat.api.Core.Seat.Service.SeatService;
 
 @RestController
-@RequestMapping("User")
-public class UserController {
-
+@RequestMapping("Seat")
+public class SeatController {
     @Autowired
-    private UserService userService;
+    private SeatService seatService;
 
     @GetMapping
-    public List<User> Get() {
-        return userService.GetAll();
+    public List<Seat> Get() {
+        return seatService.GetAll();
     }
 
     @GetMapping("{id}")
-    public User GetById(@PathVariable UUID id) {
-        return userService.GetById(id);
+    public Seat GetById(@PathVariable UUID id) {
+        return seatService.GetById(id);
     }
 
     @PostMapping
-    public Boolean Post(@RequestBody User newUser){
-        //System.out.println(newUser.getFirstName() + " " + newUser.getLastName() + " " + newUser.getPassword());
-        return userService.Post(newUser);
+    public Boolean Post(@RequestBody Seat newSeat){
+        return seatService.Post(newSeat);
     }
 
     @PutMapping("{id}")
-    public Boolean Put(@PathVariable UUID id, @RequestBody User user){
-        return userService.Put(id, user);
+    public Boolean Put(@PathVariable UUID id, @RequestBody Seat user){
+        return seatService.Put(id, user);
     }
 
     @DeleteMapping("{id}")
     public Boolean Delete(@PathVariable UUID id){
-        return userService.Delete(id);
+        return seatService.Delete(id);
     }
 }

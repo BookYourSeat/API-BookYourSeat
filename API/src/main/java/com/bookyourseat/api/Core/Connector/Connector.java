@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Scope("singleton")
 public class Connector {
 
-    private final String url = "jdbc:sqlserver://localhost:1433;encrypt=false;databaseName=BookYourSeat;user=sa;password=123456";
+    private final String url = "jdbc:sqlserver://iiot.cv5q0noapd1e.us-east-1.rds.amazonaws.com:1433;encrypt=false;databaseName=BookYourSeat;user=admin;password=dbiiotdev";
     private Connection connection;
 
     public Connector() {
