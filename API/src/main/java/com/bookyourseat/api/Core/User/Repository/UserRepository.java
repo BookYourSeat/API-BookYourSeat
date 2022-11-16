@@ -71,8 +71,8 @@ public class UserRepository {
             preparedStatement.setString(1, user.getFirstName());
             preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, Integer.toString(user.getPassword().hashCode()));
-            preparedStatement.executeUpdate();            
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
             throw new SQLException("Unable to create user");

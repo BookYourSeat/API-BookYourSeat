@@ -1,10 +1,14 @@
 package com.bookyourseat.api.Core.User.Model;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
+
+import com.bookyourseat.api.Crypto.PasswordHash;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
+
     
     private UUID Id;
     private String FirstName;
@@ -54,6 +58,13 @@ public class User {
     }
 
     public void setPassword(String password) {
-        Password = password;
+        if (password != null) {
+            try {
+                this.Password = PasswordHash.hash(password);
+            }
+            catch(NoSuchAlgorithmException e) {
+                System.out.println("Unable to set Password with hash");
+            }
+        }
     }
 }

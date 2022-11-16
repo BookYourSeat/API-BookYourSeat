@@ -86,6 +86,8 @@ public class UserService {
 
     private Boolean UniqueEmail(String email){
         try{
+            /* TODO: Create method in repository to improve performance
+             whithout the need to get all users */
             List<User> users = userRepository.GetAll();
             for (User user : users) {
                 if(user.getEmail().equals(email)){
