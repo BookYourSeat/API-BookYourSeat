@@ -11,6 +11,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bookyourseat.api.Core.Building.DTO.BuildingDTO;
 import com.bookyourseat.api.Core.Building.Model.Building;
 import com.bookyourseat.api.Core.Connector.Connector;
 
@@ -57,6 +58,27 @@ public class BuildingRepository {
             throw new SQLException("Unable to get building");
         }
         return new Building();
+    }
+
+    public BuildingDTO GetBuildingDTO(UUID id) throws SQLException {
+        Connection connection = connector.getConnection();
+    
+        String query = "SELECT b.[Id], b.[Description], b.[IdCompany], c.[Description] as CompanyDescription FROM [BookYourSeat].[dbo].[Building] as b LEFT JOIN Company as c ON c.Id = b.IdCompany WHERE b.[Id] = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, id.toString());
+            ResultSet set = preparedStatement.executeQuery();
+            if (set.next()) {
+                BuildingDTO buildingDTO = new BuildingDTO();
+                buildingDTO.setId(UUID.fromString(set.getString("Id")));
+                buildingDTO.setIdCompany(UUID.fromString(set.getString("IdCompany")));
+                buildingDTO.setDescription(set.getString("Description"));
+                buildingDTO.setCompanyDescription(set.getString("CompanyDescription"));
+                return buildingDTO;
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Unable to get building");
+        }
+        return new BuildingDTO();
     }
 
     public List<Building> GetByCompanyId(UUID id) throws SQLException {

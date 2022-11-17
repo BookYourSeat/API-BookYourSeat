@@ -2,6 +2,8 @@ package com.bookyourseat.api.Core.Building.DTO;
 
 import java.util.UUID;
 
+import com.bookyourseat.api.Core.Building.Model.Building;
+import com.bookyourseat.api.Core.Company.Model.Company;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BuildingDTO {
@@ -10,6 +12,15 @@ public class BuildingDTO {
     private String Description;
 
     private String CompanyDescription;
+
+    public BuildingDTO(){}
+
+    public BuildingDTO(Building building, Company company){
+        this.Id = building.getId();
+        this.IdCompany = building.getIdCompany();
+        this.Description = building.getDescription();
+        this.CompanyDescription = company.getDescription();
+    }
 
     @JsonProperty("Id")
     public UUID getId() {

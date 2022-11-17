@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookyourseat.api.Core.Building.DTO.BuildingDTO;
 import com.bookyourseat.api.Core.Building.Model.Building;
 import com.bookyourseat.api.Core.Building.Service.BuildingService;
 
@@ -34,12 +35,10 @@ public class BuildingController {
         return buildingService.GetById(id);
     }
 
-    /*
     @GetMapping("WithCompany/{id}")
-    public Building GetBuildingDTO(@PathVariable UUID id) {
+    public BuildingDTO GetBuildingDTO(@PathVariable UUID id) {
         return buildingService.GetBuildingDTO(id);
     }
-    */
 
     @GetMapping("CompanyId/{id}")
     public List<Building> GetByCompanyId(@PathVariable UUID id) {

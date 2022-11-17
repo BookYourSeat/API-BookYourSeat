@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bookyourseat.api.Core.Building.DTO.BuildingDTO;
 import com.bookyourseat.api.Core.Building.Model.Building;
 import com.bookyourseat.api.Core.Building.Repository.BuildingRepository;
 
@@ -31,6 +32,15 @@ public class BuildingService {
         }
         catch(SQLException e) {
             return new Building();
+        }
+    }
+
+    public BuildingDTO GetBuildingDTO(UUID id) {
+        try {
+            return buildingRepository.GetBuildingDTO(id);
+        }
+        catch(SQLException e) {
+            return new BuildingDTO();
         }
     }
 
