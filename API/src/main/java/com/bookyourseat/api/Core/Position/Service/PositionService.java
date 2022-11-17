@@ -58,6 +58,13 @@ public class PositionService {
         }
     }
 
+    public List<Position> MultiPut(List<Position> positions) {
+        for (Position position : positions) {
+            Put(position.getId(), position);
+        }
+        return positions;
+    }
+
     public Position Delete(UUID id) {
         try {
             if(!ValidatePositionExists(id))

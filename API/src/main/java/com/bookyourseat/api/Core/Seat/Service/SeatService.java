@@ -50,15 +50,6 @@ public class SeatService {
         }
     }
 
-    public List<Seat> GetByRoom(UUID id) {
-        try {
-            return seatRepository.GetByRoom(id);
-        }
-        catch(SQLException e) {
-            return new ArrayList<Seat>();
-        }
-    }
-
     public SeatDTO GetByIdWithPosition(UUID seatId) {
         Seat seat = GetById(seatId);
         Position position = positionService.GetById(seat.getIdPosition());
@@ -74,6 +65,15 @@ public class SeatService {
         SeatDTO seatDTO = new SeatDTO(seat, position, seatType);
         seatDTO.setBooks(bookService.GetBySeatAndDate(seatId, Date.valueOf(LocalDate.now().toString())));
         return seatDTO;
+    }
+
+    public List<SeatDTO> GetListSeatDTO(UUID id) {
+        try {
+            return seatRepository.GetByRoom(id);
+        }
+        catch(SQLException e) {
+            return new ArrayList<SeatDTO>();
+        }
     }
 
     public Seat Post(Seat seat) {

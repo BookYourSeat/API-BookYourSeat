@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bookyourseat.api.Core.Connector.Connector;
+import com.bookyourseat.api.Core.Seat.DTO.SeatDTO;
 import com.bookyourseat.api.Core.Seat.Model.Seat;
 
 @Component
@@ -61,23 +62,27 @@ public class SeatRepository {
         return new Seat();
     }
 
-    public List<Seat> GetByRoom(UUID id) throws SQLException {
+    public List<SeatDTO> GetByRoom(UUID id) throws SQLException {
         Connection connection = connector.getConnection();
     
-        String query = "SELECT * FROM [Seat] where [IdRoom] = ?";
+        String query = "select s.Id, s.IdPosition, s.IdRoom, s.IdType, p.Latitude, p.Longitude, p.Radius, st.[Description] as TypeDescription from Seat as s left join Position as p ON p.Id = s.IdPosition left join SeatType as st ON st.Id = s.IdType where IdRoom = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, id.toString());
             ResultSet set = preparedStatement.executeQuery();
-            List<Seat> seats = new ArrayList<Seat>();
+            List<SeatDTO> seatDTOs = new ArrayList<SeatDTO>();
             while (set.next()) {
-                Seat seat = new Seat();
-                seat.setId(UUID.fromString(set.getString("Id")));
-                seat.setIdPosition(UUID.fromString(set.getString("IdPosition")));
-                seat.setIdRoom(UUID.fromString(set.getString("IdRoom")));
-                seat.setIdType(UUID.fromString(set.getString("IdType")));
-                seats.add(seat);
+                SeatDTO seatDTO = new SeatDTO();
+                seatDTO.setId(UUID.fromString(set.getString("Id")));
+                seatDTO.setIdPosition(UUID.fromString(set.getString("IdPosition")));
+                seatDTO.setIdRoom(UUID.fromString(set.getString("IdRoom")));
+                seatDTO.setIdType(UUID.fromString(set.getString("IdType")));
+                seatDTO.setLatitude(Float.valueOf(set.getString("Latitude")));
+                seatDTO.setLongitude(Float.valueOf(set.getString("Longitude")));
+                seatDTO.setRadius(Float.valueOf(set.getString("Radius")));
+                seatDTO.setDescription(set.getString("TypeDescription"));
+                seatDTOs.add(seatDTO);
             }
-            return seats;
+            return seatDTOs;
         } catch (SQLException e) {
             throw new SQLException("Unable to get seats");
         }

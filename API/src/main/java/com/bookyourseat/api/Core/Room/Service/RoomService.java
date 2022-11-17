@@ -13,7 +13,6 @@ import com.bookyourseat.api.Core.Room.DTO.RoomDTO;
 import com.bookyourseat.api.Core.Room.Model.Room;
 import com.bookyourseat.api.Core.Room.Repository.RoomRepository;
 import com.bookyourseat.api.Core.Seat.DTO.SeatDTO;
-import com.bookyourseat.api.Core.Seat.Model.Seat;
 import com.bookyourseat.api.Core.Seat.Service.SeatService;
 
 @Component
@@ -43,8 +42,7 @@ public class RoomService {
 
     public RoomDTO GetRoomDTO(UUID id) {
         Room room = GetById(id); 
-        List<Seat> seats = seatService.GetByRoom(id);
-        List<SeatDTO> seatDTOs = GetSeatDTOs(seats);
+        List<SeatDTO> seatDTOs = GetSeatDTOs(id);
         return new RoomDTO(room, seatDTOs);
     }
 
@@ -114,11 +112,8 @@ public class RoomService {
         }      
     }
 
-    private List<SeatDTO> GetSeatDTOs(List<Seat> seats){
-        List<SeatDTO> seatDTOs = new ArrayList<SeatDTO>();
-        for (Seat seat : seats) {
-            seatDTOs.add(seatService.GetByIdWithPositionAndType(seat.getId()));
-        }
+    private List<SeatDTO> GetSeatDTOs(UUID id){
+        List<SeatDTO> seatDTOs = seatService.GetListSeatDTO(id);
         return seatDTOs;
     }
 }

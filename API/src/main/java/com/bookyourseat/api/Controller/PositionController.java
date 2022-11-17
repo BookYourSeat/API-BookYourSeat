@@ -44,6 +44,11 @@ public class PositionController {
         return positionService.Put(id, position);
     }
 
+    @PutMapping("Multi")
+    public List<Position> Put(@RequestBody List<Position> positions){
+        return positionService.MultiPut(positions);
+    }
+
     @DeleteMapping("{id}")
     public Position Delete(@PathVariable UUID id){
         return positionService.Delete(id);
