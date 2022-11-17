@@ -2,6 +2,7 @@ package com.bookyourseat.api.Core.Position.Model;
 
 import java.util.UUID;
 
+import com.bookyourseat.api.Core.Seat.DTO.SeatAndPositionPostDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Position {
@@ -9,6 +10,14 @@ public class Position {
     private Float Longitude;
     private Float Latitude;
     private Float Radius;
+
+    public Position(){}
+
+    public Position(SeatAndPositionPostDTO seatAndPositionPostDTO){
+        this.Longitude = seatAndPositionPostDTO.getPosition().getLongitude();
+        this.Latitude = seatAndPositionPostDTO.getPosition().getLatitude();
+        this.Radius = seatAndPositionPostDTO.getPosition().getRadius();
+    }
 
     @JsonProperty("Id")
     public UUID getId() {

@@ -1,6 +1,8 @@
 package com.bookyourseat.api.Core.Seat.Service;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -8,8 +10,10 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bookyourseat.api.Core.Book.Service.BookService;
 import com.bookyourseat.api.Core.Position.Model.Position;
 import com.bookyourseat.api.Core.Position.Service.PositionService;
+import com.bookyourseat.api.Core.Seat.DTO.SeatAndPositionPostDTO;
 import com.bookyourseat.api.Core.Seat.DTO.SeatDTO;
 import com.bookyourseat.api.Core.Seat.Model.Seat;
 import com.bookyourseat.api.Core.Seat.Repository.SeatRepository;
@@ -25,6 +29,8 @@ public class SeatService {
     private PositionService positionService;
     @Autowired
     private SeatTypeService seatTypeService;
+    @Autowired
+    private BookService bookService;
 
     public List<Seat> GetAll() {
         try {
@@ -47,14 +53,18 @@ public class SeatService {
     public SeatDTO GetByIdWithPosition(UUID seatId) {
         Seat seat = GetById(seatId);
         Position position = positionService.GetById(seat.getIdPosition());
-        return new SeatDTO(seat, position);
+        SeatDTO seatDTO = new SeatDTO(seat, position);
+        seatDTO.setBooks(bookService.GetBySeatAndDate(seatId, Date.valueOf(LocalDate.now().toString())));
+        return seatDTO;
     }
     
     public SeatDTO GetByIdWithPositionAndType(UUID seatId) {
         Seat seat = GetById(seatId);
         Position position = positionService.GetById(seat.getIdPosition());
         SeatType seatType = seatTypeService.GetById(seat.getIdType());
-        return new SeatDTO(seat, position, seatType);
+        SeatDTO seatDTO = new SeatDTO(seat, position, seatType);
+        seatDTO.setBooks(bookService.GetBySeatAndDate(seatId, Date.valueOf(LocalDate.now().toString())));
+        return seatDTO;
     }
 
     public Seat Post(Seat seat) {
@@ -68,11 +78,13 @@ public class SeatService {
         }
     }
 
-    public SeatDTO PostWithPosition(Seat seat, Position position) {
+    public SeatDTO PostWithPosition(SeatAndPositionPostDTO seatAndPositionPostDTO) {
         try {
+            Position position = new Position(seatAndPositionPostDTO);
             Position positionValidator = positionService.Post(position);
             if(positionValidator.toString().isBlank())
                 return new SeatDTO();
+            Seat seat = new Seat(seatAndPositionPostDTO);
             seat.setIdPosition(positionValidator.getId());
             if(!ValidateSeatInfo(seat))
                 return new SeatDTO();

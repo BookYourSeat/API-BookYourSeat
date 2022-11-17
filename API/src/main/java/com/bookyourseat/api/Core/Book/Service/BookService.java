@@ -1,5 +1,6 @@
 package com.bookyourseat.api.Core.Book.Service;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,15 @@ public class BookService {
         }
         catch(SQLException e) {
             return new Book();
+        }
+    }
+
+    public List<Book> GetBySeatAndDate(UUID seatId, Date date) {
+        try {
+            return bookRepository.GetBySeatAndDate(seatId, date);
+        }
+        catch(SQLException e) {
+            return new ArrayList<Book>();
         }
     }
 
