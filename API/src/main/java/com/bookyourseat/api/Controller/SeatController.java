@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookyourseat.api.Core.Position.Model.Position;
+import com.bookyourseat.api.Core.Seat.DTO.SeatDTO;
 import com.bookyourseat.api.Core.Seat.Model.Seat;
 import com.bookyourseat.api.Core.Seat.Service.SeatService;
 
@@ -32,9 +34,24 @@ public class SeatController {
         return seatService.GetById(id);
     }
 
+    @GetMapping("WithPosition/{seatId}/{positionId}")
+    public SeatDTO GetByIdWithPosition(@PathVariable UUID seatId, @PathVariable UUID positionId) {
+        return seatService.GetByIdWithPosition(seatId, positionId);
+    }
+
+    @GetMapping("WithPosition/{seatId}/{positionId}/{typeId}")
+    public SeatDTO GetByIdWithPositionAndType(@PathVariable UUID seatId, @PathVariable UUID positionId, @PathVariable UUID seatTypeId) {
+        return seatService.GetByIdWithPositionAndType(seatId, positionId, seatId);
+    }
+
     @PostMapping
     public Seat Post(@RequestBody Seat newSeat){
         return seatService.Post(newSeat);
+    }
+
+    @PostMapping
+    public SeatDTO PostWithPosition(@RequestBody Seat newSeat, @RequestBody Position position){
+        return seatService.PostWithPosition(newSeat, position);
     }
 
     @PutMapping("{id}")

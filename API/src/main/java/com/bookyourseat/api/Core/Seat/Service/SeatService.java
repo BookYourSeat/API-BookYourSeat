@@ -8,15 +8,24 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bookyourseat.api.Core.Position.Model.Position;
+import com.bookyourseat.api.Core.Position.Service.PositionService;
+import com.bookyourseat.api.Core.Seat.DTO.SeatDTO;
 import com.bookyourseat.api.Core.Seat.Model.Seat;
 import com.bookyourseat.api.Core.Seat.Repository.SeatRepository;
+import com.bookyourseat.api.Core.SeatType.Model.SeatType;
+import com.bookyourseat.api.Core.SeatType.Service.SeatTypeService;
 
 
 @Component
 public class SeatService {
     @Autowired
     private SeatRepository seatRepository;
-    
+    @Autowired
+    private PositionService positionService;
+    @Autowired
+    private SeatTypeService seatTypeService;
+
     public List<Seat> GetAll() {
         try {
             return seatRepository.GetAll();
@@ -35,6 +44,19 @@ public class SeatService {
         }
     }
 
+    public SeatDTO GetByIdWithPosition(UUID seatId, UUID positionId) {
+        Position position = positionService.GetById(positionId);
+        Seat seat = GetById(seatId);
+        return new SeatDTO(seat, position);
+    }
+    
+    public SeatDTO GetByIdWithPositionAndType(UUID seatId, UUID positionId, UUID seatTypeId) {
+        Position position = positionService.GetById(positionId);
+        SeatType seatType = seatTypeService.GetById(seatTypeId);
+        Seat seat = GetById(seatId);
+        return new SeatDTO(seat, position, seatType);
+    }
+
     public Seat Post(Seat seat) {
         try {
             if(!ValidateSeatInfo(seat))
@@ -43,6 +65,22 @@ public class SeatService {
         }
         catch(SQLException e) {
             return new Seat();
+        }
+    }
+
+    public SeatDTO PostWithPosition(Seat seat, Position position) {
+        try {
+            Position positionValidator = positionService.Post(position);
+            if(positionValidator.toString().isBlank())
+                return new SeatDTO();
+            seat.setIdPosition(positionValidator.getId());
+            if(!ValidateSeatInfo(seat))
+                return new SeatDTO();
+            seatRepository.Post(seat);
+            return new SeatDTO(seat, position);
+        }
+        catch(SQLException e) {
+            return new SeatDTO();
         }
     }
 
