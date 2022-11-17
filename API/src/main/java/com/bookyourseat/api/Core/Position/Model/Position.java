@@ -6,10 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Position {
     private UUID Id;
-    private Float TopLongitude;
-    private Float TopLatitude;
-    private Float BottomLongitude;
-    private Float BottomLatitude;
+    private Float Longitude;
+    private Float Latitude;
+    private Float Radius;
 
     @JsonProperty("Id")
     public UUID getId() {
@@ -20,39 +19,30 @@ public class Position {
         Id = id;
     }
 
-    @JsonProperty("TopLongitude")
-    public Float getTopLongitude() {
-        return TopLongitude;
+    @JsonProperty("Longitude")
+    public Float getLongitude() {
+        return Longitude;
     }
 
-    public void setTopLongitude(Float topLongitude) {
-        TopLongitude = topLongitude;
+    public void setLongitude(Float longitude) {
+        Longitude = longitude;
     }
 
-    @JsonProperty("TopLatitude")
-    public Float getTopLatitude() {
-        return TopLatitude;
+    @JsonProperty("Latitude")
+    public Float getLatitude() {
+        return Latitude;
     }
 
-    public void setTopLatitude(Float topLatitude) {
-        TopLatitude = topLatitude;
+    public void setLatitude(Float latitude) {
+        Latitude = latitude;
     }
 
-    @JsonProperty("BottomLongitude")
-    public Float getBottomLongitude() {
-        return BottomLongitude;
+    @JsonProperty("Radius")
+    public Float getRadius() {
+        return Radius;
     }
 
-    public void setBottomLongitude(Float bottomLongitude) {
-        BottomLongitude = bottomLongitude;
-    }
-
-    @JsonProperty("BottomLatitude")
-    public Float getBottomLatitude() {
-        return BottomLatitude;
-    }
-
-    public void setBottomLatitude(Float bottomLatitude) {
-        BottomLatitude = bottomLatitude;
+    public void setRadius(Float radius) {
+        Radius = radius;
     }
 }

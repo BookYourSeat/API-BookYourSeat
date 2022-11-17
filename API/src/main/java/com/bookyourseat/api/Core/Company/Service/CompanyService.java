@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bookyourseat.api.Core.Building.Model.Building;
+import com.bookyourseat.api.Core.Building.Service.BuildingService;
 import com.bookyourseat.api.Core.Company.Model.Company;
 import com.bookyourseat.api.Core.Company.Repository.CompanyRepository;
 
@@ -15,6 +17,7 @@ import com.bookyourseat.api.Core.Company.Repository.CompanyRepository;
 public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
+    private BuildingService buildingService;
     
     public List<Company> GetAll() {
         try {
@@ -62,6 +65,8 @@ public class CompanyService {
         try {
             if(!ValidateCompanyExists(id))
                 return new Company();
+            if(!ValidateNoBuildings(id))
+                return new Company();
             return companyRepository.Delete(id);
         }
         catch(SQLException e) {
@@ -85,5 +90,12 @@ public class CompanyService {
         catch(SQLException e) {
             return false;
         }      
+    }
+
+    private Boolean ValidateNoBuildings(UUID id){
+        List<Building> buildings = buildingService.GetByCompanyId(id);
+        if(buildings.isEmpty())
+            return true;
+        return false;
     }
 }

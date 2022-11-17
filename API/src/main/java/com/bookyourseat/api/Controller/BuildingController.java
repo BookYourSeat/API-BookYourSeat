@@ -32,6 +32,11 @@ public class BuildingController {
         return buildingService.GetById(id);
     }
 
+    @GetMapping("CompanyId/{id}")
+    public List<Building> GetByCompanyId(@PathVariable UUID id) {
+        return buildingService.GetByCompanyId(id);
+    }
+
     @PostMapping
     public Building Post(@RequestBody Building newBuilding){
         return buildingService.Post(newBuilding);

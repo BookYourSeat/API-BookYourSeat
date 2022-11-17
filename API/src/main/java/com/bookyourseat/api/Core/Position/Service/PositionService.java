@@ -70,13 +70,11 @@ public class PositionService {
     }
 
     private Boolean ValidatePositionInfo(Position position){
-        if(position.getTopLatitude().isNaN())
+        if(position.getLatitude().isNaN())
             return false;
-        if(position.getTopLongitude().isNaN())
+        if(position.getLongitude().isNaN())
             return false;
-        if(position.getBottomLatitude().isNaN())
-            return false;
-        if(position.getBottomLongitude().isNaN())
+        if(position.getRadius().isNaN())
             return false;
         return true;
     }

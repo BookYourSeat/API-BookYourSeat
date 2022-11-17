@@ -59,6 +59,27 @@ public class BuildingRepository {
         return new Building();
     }
 
+    public List<Building> GetByCompanyId(UUID id) throws SQLException {
+        Connection connection = connector.getConnection();
+    
+        String query = "SELECT * FROM [Building] WHERE Id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, id.toString());
+            ResultSet set = preparedStatement.executeQuery();
+            List<Building> buildings = new ArrayList<Building>();
+            while (set.next()) {
+                Building building = new Building();
+                building.setId(UUID.fromString(set.getString("Id")));
+                building.setIdCompany(UUID.fromString(set.getString("IdCompany")));
+                building.setDescription(set.getString("Description"));
+                buildings.add(building);
+            }
+            return buildings;
+        } catch (SQLException e) {
+            throw new SQLException("Unable to get buildings");
+        }
+    }
+
     public Building Post(Building building) throws SQLException {
         Connection connection = connector.getConnection();
         UUID newId = UUID.randomUUID();
