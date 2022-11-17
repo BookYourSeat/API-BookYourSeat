@@ -34,17 +34,17 @@ public class UserController {
     }
 
     @PostMapping
-    public Boolean Post(@RequestBody User newUser){
+    public User Post(@RequestBody User newUser){
         return userService.Post(newUser);
     }
 
     @PutMapping("{id}")
-    public Boolean Put(@PathVariable UUID id, @RequestBody User user){
+    public User Put(@PathVariable UUID id, @RequestBody User user){
         return userService.Put(id, user);
     }
 
     @DeleteMapping("{id}")
-    public Boolean Delete(@PathVariable UUID id){
+    public User Delete(@PathVariable UUID id){
         return userService.Delete(id);
     }
 }

@@ -34,38 +34,38 @@ public class RoomService {
         }
     }
 
-    public Boolean Post(Room room) {
+    public Room Post(Room room) {
         try {
             if(!ValidateRoomInfo(room))
-                return false;
+                return new Room();
             return roomRepository.Post(room);
         }
         catch(SQLException e) {
-            return false;
+            return new Room();
         }
     }
 
-    public Boolean Put(UUID id, Room room) {
+    public Room Put(UUID id, Room room) {
         try {
             if(!ValidateRoomInfo(room))
-                return false;
+                return new Room();
             if(!ValidateRoomExists(id))
-                return false;
+                return new Room();
             return roomRepository.Put(id, room);
         }
         catch(SQLException e) {
-            return false;
+            return new Room();
         }
     }
 
-    public Boolean Delete(UUID id) {
+    public Room Delete(UUID id) {
         try {
             if(!ValidateRoomExists(id))
-                return false;
+                return new Room();
             return roomRepository.Delete(id);
         }
         catch(SQLException e) {
-            return false;
+            return new Room();
         }
     }
 

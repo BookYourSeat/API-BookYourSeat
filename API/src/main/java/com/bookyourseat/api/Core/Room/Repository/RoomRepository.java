@@ -61,22 +61,25 @@ public class RoomRepository {
         return new Room();
     }
 
-    public Boolean Post(Room room) throws SQLException {
+    public Room Post(Room room) throws SQLException {
         Connection connection = connector.getConnection();
+        UUID newId = UUID.randomUUID();
     
-        String query = "Insert into [Room] ([Id],[IdBuilding],[Description],[Map]) values (NEWID(), ?, ?, ?)";
+        String query = "Insert into [Room] ([Id],[IdBuilding],[Description],[Map]) values (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, room.getIdBuilding().toString());
-            preparedStatement.setString(2, room.getDescription());
-            preparedStatement.setString(3, room.getMap());
+            preparedStatement.setString(1, newId.toString());
+            preparedStatement.setString(2, room.getIdBuilding().toString());
+            preparedStatement.setString(3, room.getDescription());
+            preparedStatement.setString(4, room.getMap());
             preparedStatement.executeUpdate();            
         } catch (SQLException e) {
             throw new SQLException("Unable to create room");
         }
-        return true;
+        room.setId(newId);
+        return room;
     }
 
-    public Boolean Put(UUID id, Room room) throws SQLException {
+    public Room Put(UUID id, Room room) throws SQLException {
         Connection connection = connector.getConnection();
     
         String query = "Update [Room] SET [IdBuilding] = ?, [Description] = ?, [Map] = ? where [Id] = ?";
@@ -89,10 +92,11 @@ public class RoomRepository {
         } catch (SQLException e) {
             throw new SQLException("Unable to update room");
         }
-        return true;
+        room.setId(id);
+        return room;
     }
 
-    public Boolean Delete(UUID id) throws SQLException {
+    public Room Delete(UUID id) throws SQLException {
         Connection connection = connector.getConnection();
     
         String query = "Delete from [Room] where [Id] = ?";
@@ -102,6 +106,8 @@ public class RoomRepository {
         } catch (SQLException e) {
             throw new SQLException("Unable to delete room");
         }
-        return true;
+        Room room = new Room();
+        room.setId(id);
+        return room;
     }
 }

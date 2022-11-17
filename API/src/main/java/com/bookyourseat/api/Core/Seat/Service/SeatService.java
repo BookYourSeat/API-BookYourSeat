@@ -35,38 +35,38 @@ public class SeatService {
         }
     }
 
-    public Boolean Post(Seat seat) {
+    public Seat Post(Seat seat) {
         try {
             if(!ValidateSeatInfo(seat))
-                return false;
+                return new Seat();
             return seatRepository.Post(seat);
         }
         catch(SQLException e) {
-            return false;
+            return new Seat();
         }
     }
 
-    public Boolean Put(UUID id, Seat seat) {
+    public Seat Put(UUID id, Seat seat) {
         try {
             if(!ValidateSeatInfo(seat))
-                return false;
+                return new Seat();
             if(!ValidateSeatExists(id))
-                return false;
+                return new Seat();
             return seatRepository.Put(id, seat);
         }
         catch(SQLException e) {
-            return false;
+            return new Seat();
         }
     }
 
-    public Boolean Delete(UUID id) {
+    public Seat Delete(UUID id) {
         try {
             if(!ValidateSeatExists(id))
-                return false;
+                return new Seat();
             return seatRepository.Delete(id);
         }
         catch(SQLException e) {
-            return false;
+            return new Seat();
         }
     }
 

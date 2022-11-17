@@ -34,38 +34,38 @@ public class PositionService {
         }
     }
 
-    public Boolean Post(Position position) {
+    public Position Post(Position position) {
         try {
             if(!ValidatePositionInfo(position))
-                return false;
+                return new Position();
             return positionRepository.Post(position);
         }
         catch(SQLException e) {
-            return false;
+            return new Position();
         }
     }
 
-    public Boolean Put(UUID id, Position position) {
+    public Position Put(UUID id, Position position) {
         try {
             if(!ValidatePositionInfo(position))
-                return false;
+                return new Position();
             if(!ValidatePositionExists(id))
-                return false;
+                return new Position();
             return positionRepository.Put(id, position);
         }
         catch(SQLException e) {
-            return false;
+            return new Position();
         }
     }
 
-    public Boolean Delete(UUID id) {
+    public Position Delete(UUID id) {
         try {
             if(!ValidatePositionExists(id))
-                return false;
+                return new Position();
             return positionRepository.Delete(id);
         }
         catch(SQLException e) {
-            return false;
+            return new Position();
         }
     }
 

@@ -34,38 +34,38 @@ public class SeatTypeService {
         }
     }
 
-    public Boolean Post(SeatType seatType) {
+    public SeatType Post(SeatType seatType) {
         try {
             if(!ValidateSeatTypeInfo(seatType))
-                return false;
+                return new SeatType();
             return seatTypeRepository.Post(seatType);
         }
         catch(SQLException e) {
-            return false;
+            return new SeatType();
         }
     }
 
-    public Boolean Put(UUID id, SeatType seatType) {
+    public SeatType Put(UUID id, SeatType seatType) {
         try {
             if(!ValidateSeatTypeInfo(seatType))
-                return false;
+                return new SeatType();
             if(!ValidateSeatTypeExists(id))
-                return false;
+                return new SeatType();
             return seatTypeRepository.Put(id, seatType);
         }
         catch(SQLException e) {
-            return false;
+            return new SeatType();
         }
     }
 
-    public Boolean Delete(UUID id) {
+    public SeatType Delete(UUID id) {
         try {
             if(!ValidateSeatTypeExists(id))
-                return false;
+                return new SeatType();
             return seatTypeRepository.Delete(id);
         }
         catch(SQLException e) {
-            return false;
+            return new SeatType();
         }
     }
 

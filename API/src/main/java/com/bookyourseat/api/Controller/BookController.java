@@ -13,38 +13,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookyourseat.api.Core.Position.Model.Position;
-import com.bookyourseat.api.Core.Position.Service.PositionService;
+import com.bookyourseat.api.Core.Book.Model.Book;
+import com.bookyourseat.api.Core.Book.Service.BookService;
 
 @RestController
-@RequestMapping("Position")
-public class PositionController {
+@RequestMapping("Book")
+public class BookController {
     @Autowired
-    private PositionService positionService;
+    private BookService bookService;
 
     @GetMapping
-    public List<Position> Get() {
-        return positionService.GetAll();
+    public List<Book> Get() {
+        return bookService.GetAll();
     }
 
     @GetMapping("{id}")
-    public Position GetById(@PathVariable UUID id) {
-        return positionService.GetById(id);
+    public Book GetById(@PathVariable UUID id) {
+        return bookService.GetById(id);
     }
 
     @PostMapping
-    public Position Post(@RequestBody Position newPosition){
-        return positionService.Post(newPosition);
+    public Book Post(@RequestBody Book newBook){
+        return bookService.Post(newBook);
     }
 
     @PutMapping("{id}")
-    public Position Put(@PathVariable UUID id, @RequestBody Position position){
-        return positionService.Put(id, position);
+    public Book Put(@PathVariable UUID id, @RequestBody Book book){
+        return bookService.Put(id, book);
     }
 
     @DeleteMapping("{id}")
-    public Position Delete(@PathVariable UUID id){
-        return positionService.Delete(id);
+    public Book Delete(@PathVariable UUID id){
+        return bookService.Delete(id);
     }
-
 }
