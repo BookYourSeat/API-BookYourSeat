@@ -61,6 +61,28 @@ public class SeatRepository {
         return new Seat();
     }
 
+    public List<Seat> GetByRoom(UUID id) throws SQLException {
+        Connection connection = connector.getConnection();
+    
+        String query = "SELECT * FROM [Seat] where [IdRoom] = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, id.toString());
+            ResultSet set = preparedStatement.executeQuery();
+            List<Seat> seats = new ArrayList<Seat>();
+            while (set.next()) {
+                Seat seat = new Seat();
+                seat.setId(UUID.fromString(set.getString("Id")));
+                seat.setIdPosition(UUID.fromString(set.getString("IdPosition")));
+                seat.setIdRoom(UUID.fromString(set.getString("IdRoom")));
+                seat.setIdType(UUID.fromString(set.getString("IdType")));
+                seats.add(seat);
+            }
+            return seats;
+        } catch (SQLException e) {
+            throw new SQLException("Unable to get seats");
+        }
+    }
+
     public Seat Post(Seat seat) throws SQLException {
         Connection connection = connector.getConnection();
         UUID newId = UUID.randomUUID();

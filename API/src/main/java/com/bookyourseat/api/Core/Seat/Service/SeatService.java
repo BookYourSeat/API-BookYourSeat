@@ -50,6 +50,15 @@ public class SeatService {
         }
     }
 
+    public List<Seat> GetByRoom(UUID id) {
+        try {
+            return seatRepository.GetByRoom(id);
+        }
+        catch(SQLException e) {
+            return new ArrayList<Seat>();
+        }
+    }
+
     public SeatDTO GetByIdWithPosition(UUID seatId) {
         Seat seat = GetById(seatId);
         Position position = positionService.GetById(seat.getIdPosition());

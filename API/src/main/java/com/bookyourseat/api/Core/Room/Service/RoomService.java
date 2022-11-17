@@ -11,11 +11,16 @@ import org.springframework.stereotype.Component;
 import com.bookyourseat.api.Core.Room.DTO.RoomDTO;
 import com.bookyourseat.api.Core.Room.Model.Room;
 import com.bookyourseat.api.Core.Room.Repository.RoomRepository;
+import com.bookyourseat.api.Core.Seat.DTO.SeatDTO;
+import com.bookyourseat.api.Core.Seat.Model.Seat;
+import com.bookyourseat.api.Core.Seat.Service.SeatService;
 
 @Component
 public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private SeatService seatService;
     
     public List<Room> GetAll() {
         try {
@@ -36,15 +41,10 @@ public class RoomService {
     }
 
     public RoomDTO GetRoomDTO(UUID id) {
-        /*
-        try {
-            return roomRepository.GetRoomDTO(id);
-        }
-        catch(SQLException e) {
-            return new RoomDTO();
-        }
-        */
-        return new RoomDTO();
+        Room room = GetById(id); 
+        List<Seat> seats = seatService.GetByRoom(id);
+        List<SeatDTO> seatDTOs = GetSeatDTOs(seats);
+        return new RoomDTO(room, seatDTOs);
     }
 
     public Room Post(Room room) {
@@ -102,5 +102,13 @@ public class RoomService {
         catch(SQLException e) {
             return false;
         }      
+    }
+
+    private List<SeatDTO> GetSeatDTOs(List<Seat> seats){
+        List<SeatDTO> seatDTOs = new ArrayList<SeatDTO>();
+        for (Seat seat : seats) {
+            seatDTOs.add(seatService.GetByIdWithPositionAndType(seat.getId()));
+        }
+        return seatDTOs;
     }
 }

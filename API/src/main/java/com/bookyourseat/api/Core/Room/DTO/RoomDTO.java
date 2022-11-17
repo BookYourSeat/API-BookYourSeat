@@ -1,7 +1,9 @@
 package com.bookyourseat.api.Core.Room.DTO;
 
+import java.util.List;
 import java.util.UUID;
 
+import com.bookyourseat.api.Core.Room.Model.Room;
 import com.bookyourseat.api.Core.Seat.DTO.SeatDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,7 +13,17 @@ public class RoomDTO {
     private String Description;
     private String Map;
 
-    private SeatDTO seatDTO;
+    private List<SeatDTO> seatDTOs;
+
+    public RoomDTO(){}
+
+    public RoomDTO(Room room, List<SeatDTO> seatDTOs){
+        this.Id = room.getId();
+        this.IdBuilding = room.getIdBuilding();
+        this.Description = room.getDescription();
+        this.Map = room.getMap();
+        this.seatDTOs = seatDTOs;
+    }
 
     @JsonProperty("Id")
     public UUID getId() {
@@ -50,11 +62,11 @@ public class RoomDTO {
     }
 
     @JsonProperty("SeatDTO")
-    public SeatDTO getSeatDTO() {
-        return seatDTO;
+    public List<SeatDTO> getSeatDTO() {
+        return seatDTOs;
     }
 
-    public void setSeatDTO(SeatDTO seatDTO) {
-        this.seatDTO = seatDTO;
+    public void setSeatDTO(List<SeatDTO> seatDTOs) {
+        this.seatDTOs = seatDTOs;
     }
 }
