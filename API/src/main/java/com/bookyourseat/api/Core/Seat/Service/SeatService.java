@@ -44,16 +44,16 @@ public class SeatService {
         }
     }
 
-    public SeatDTO GetByIdWithPosition(UUID seatId, UUID positionId) {
-        Position position = positionService.GetById(positionId);
+    public SeatDTO GetByIdWithPosition(UUID seatId) {
         Seat seat = GetById(seatId);
+        Position position = positionService.GetById(seat.getIdPosition());
         return new SeatDTO(seat, position);
     }
     
-    public SeatDTO GetByIdWithPositionAndType(UUID seatId, UUID positionId, UUID seatTypeId) {
-        Position position = positionService.GetById(positionId);
-        SeatType seatType = seatTypeService.GetById(seatTypeId);
+    public SeatDTO GetByIdWithPositionAndType(UUID seatId) {
         Seat seat = GetById(seatId);
+        Position position = positionService.GetById(seat.getIdPosition());
+        SeatType seatType = seatTypeService.GetById(seat.getIdType());
         return new SeatDTO(seat, position, seatType);
     }
 

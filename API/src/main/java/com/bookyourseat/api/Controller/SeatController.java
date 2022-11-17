@@ -35,13 +35,13 @@ public class SeatController {
     }
 
     @GetMapping("WithPosition/{seatId}/{positionId}")
-    public SeatDTO GetByIdWithPosition(@PathVariable UUID seatId, @PathVariable UUID positionId) {
-        return seatService.GetByIdWithPosition(seatId, positionId);
+    public SeatDTO GetByIdWithPosition(@PathVariable UUID seatId) {
+        return seatService.GetByIdWithPosition(seatId);
     }
 
-    @GetMapping("WithPosition/{seatId}/{positionId}/{typeId}")
-    public SeatDTO GetByIdWithPositionAndType(@PathVariable UUID seatId, @PathVariable UUID positionId, @PathVariable UUID seatTypeId) {
-        return seatService.GetByIdWithPositionAndType(seatId, positionId, seatId);
+    @GetMapping("WithPositionAndType/{seatId}")
+    public SeatDTO GetByIdWithPositionAndType(@PathVariable UUID seatId) {
+        return seatService.GetByIdWithPositionAndType(seatId);
     }
 
     @PostMapping
