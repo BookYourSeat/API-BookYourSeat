@@ -32,7 +32,7 @@ public class UserRepository {
                 user.setFirstName(set.getString("FirstName"));
                 user.setLastName(set.getString("LastName"));
                 user.setEmail(set.getString("Email"));
-                user.setPassword(set.getString("Password"));
+                //user.setPassword(set.getString("Password"));
                 users.add(user);
             }
             return users;
@@ -54,7 +54,7 @@ public class UserRepository {
                 user.setFirstName(set.getString("FirstName"));
                 user.setLastName(set.getString("LastName"));
                 user.setEmail(set.getString("Email"));
-                user.setPassword(set.getString("Password"));
+                //user.setPassword(set.getString("Password"));
                 return user;
             }
         } catch (SQLException e) {
@@ -80,6 +80,7 @@ public class UserRepository {
             throw new SQLException("Unable to create user");
         }
         user.setId(newId);
+        user.setPassword(null);
         return user;
     }
 
@@ -98,6 +99,7 @@ public class UserRepository {
             throw new SQLException("Unable to update user");
         }
         user.setId(id);
+        user.setPassword(null);
         return user;
     }
 

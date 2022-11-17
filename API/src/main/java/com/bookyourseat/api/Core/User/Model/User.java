@@ -4,7 +4,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import com.bookyourseat.api.Crypto.PasswordHash;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
@@ -51,7 +50,7 @@ public class User {
         Email = email;
     }
 
-    @JsonIgnore
+    @JsonProperty("Password")
     public String getPassword() {
         return Password;
     }
