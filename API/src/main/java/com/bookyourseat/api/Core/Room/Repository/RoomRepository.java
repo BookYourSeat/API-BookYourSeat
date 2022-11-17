@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bookyourseat.api.Core.Connector.Connector;
+import com.bookyourseat.api.Core.Room.DTO.RoomBuildingDTO;
 import com.bookyourseat.api.Core.Room.Model.Room;
 
 @Component
@@ -59,6 +60,28 @@ public class RoomRepository {
             throw new SQLException("Unable to get room");
         }
         return new Room();
+    }
+
+    public RoomBuildingDTO GetRoomBuildingDTO(UUID id) throws SQLException {
+        Connection connection = connector.getConnection();
+    
+        String query = "SELECT r.[Id], r.[IdBuilding], r.[Description], r.[Map], b.[Description] as BuildingDescription FROM [BookYourSeat].[dbo].[Room] as r LEFT JOIN Building as b ON b.Id = r.IdBuilding WHERE r.[Id] = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, id.toString());
+            ResultSet set = preparedStatement.executeQuery();
+            if (set.next()) {
+                RoomBuildingDTO roomBuildingDTO = new RoomBuildingDTO();
+                roomBuildingDTO.setId(UUID.fromString(set.getString("Id")));
+                roomBuildingDTO.setIdBuilding(UUID.fromString(set.getString("IdBuilding")));
+                roomBuildingDTO.setDescription(set.getString("Description"));
+                roomBuildingDTO.setMap(set.getString("Map"));
+                roomBuildingDTO.setBuildingDescription(set.getString("BuildingDescription"));
+                return roomBuildingDTO;
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Unable to get room");
+        }
+        return new RoomBuildingDTO();
     }
 
     public Room Post(Room room) throws SQLException {

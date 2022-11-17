@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookyourseat.api.Core.Room.DTO.RoomBuildingDTO;
 import com.bookyourseat.api.Core.Room.DTO.RoomDTO;
 import com.bookyourseat.api.Core.Room.Model.Room;
 import com.bookyourseat.api.Core.Room.Service.RoomService;
@@ -38,6 +39,11 @@ public class RoomController {
     @GetMapping("MapDto/{id}")
     public RoomDTO GetRoomDTO(@PathVariable UUID id) {
         return roomService.GetRoomDTO(id);
+    }
+
+    @GetMapping("MapBuildingDto/{id}")
+    public RoomBuildingDTO GetRoomBuildingDTO(@PathVariable UUID id) {
+        return roomService.GetRoomBuildingDTO(id);
     }
 
     @PostMapping

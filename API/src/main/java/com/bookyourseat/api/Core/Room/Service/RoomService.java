@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bookyourseat.api.Core.Room.DTO.RoomBuildingDTO;
 import com.bookyourseat.api.Core.Room.DTO.RoomDTO;
 import com.bookyourseat.api.Core.Room.Model.Room;
 import com.bookyourseat.api.Core.Room.Repository.RoomRepository;
@@ -45,6 +46,15 @@ public class RoomService {
         List<Seat> seats = seatService.GetByRoom(id);
         List<SeatDTO> seatDTOs = GetSeatDTOs(seats);
         return new RoomDTO(room, seatDTOs);
+    }
+
+    public RoomBuildingDTO GetRoomBuildingDTO(UUID id) {
+        try {
+            return roomRepository.GetRoomBuildingDTO(id);
+        }
+        catch(SQLException e) {
+            return new RoomBuildingDTO();
+        }
     }
 
     public Room Post(Room room) {
