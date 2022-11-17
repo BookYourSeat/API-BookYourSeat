@@ -36,12 +36,15 @@ public class RoomService {
     }
 
     public RoomDTO GetRoomDTO(UUID id) {
+        /*
         try {
             return roomRepository.GetRoomDTO(id);
         }
         catch(SQLException e) {
             return new RoomDTO();
         }
+        */
+        return new RoomDTO();
     }
 
     public Room Post(Room room) {

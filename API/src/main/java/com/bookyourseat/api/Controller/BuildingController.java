@@ -34,6 +34,13 @@ public class BuildingController {
         return buildingService.GetById(id);
     }
 
+    /*
+    @GetMapping("WithCompany/{id}")
+    public Building GetBuildingDTO(@PathVariable UUID id) {
+        return buildingService.GetBuildingDTO(id);
+    }
+    */
+
     @GetMapping("CompanyId/{id}")
     public List<Building> GetByCompanyId(@PathVariable UUID id) {
         return buildingService.GetByCompanyId(id);
