@@ -16,6 +16,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.microsoft.sqlserver:mssql-jdbc:12.1.0.jre11-preview'
+	implementation 'com.auth0:java-jwt:4.2.1'
+	implementation 'org.springframework.security:spring-security-core:5.7.5'
+	implementation 'org.springframework.security:spring-security-web:5.7.5'
+	implementation 'org.springframework.security:spring-security-config:5.7.5'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
