@@ -29,10 +29,9 @@ public class PositionRepository {
             while (set.next()) {
                 Position position = new Position();
                 position.setId(UUID.fromString(set.getString("Id")));
-                position.setTopLatitude(Float.valueOf(set.getString("TopLatitude")));
-                position.setTopLongitude(Float.valueOf(set.getString("TopLongitude")));
-                position.setBottomLatitude(Float.valueOf(set.getString("BottomLatitude")));
-                position.setBottomLongitude(Float.valueOf(set.getString("BottomLongitude")));
+                position.setLongitude(Float.valueOf(set.getString("Longitude")));
+                position.setLatitude(Float.valueOf(set.getString("Latitude")));
+                position.setRadius(Float.valueOf(set.getString("Radius")));
                 positions.add(position);
             }
             return positions;
@@ -51,10 +50,9 @@ public class PositionRepository {
             if (set.next()) {
                 Position position = new Position();
                 position.setId(UUID.fromString(set.getString("Id")));
-                position.setTopLatitude(Float.valueOf(set.getString("TopLatitude")));
-                position.setTopLongitude(Float.valueOf(set.getString("TopLongitude")));
-                position.setBottomLatitude(Float.valueOf(set.getString("BottomLatitude")));
-                position.setBottomLongitude(Float.valueOf(set.getString("BottomLongitude")));
+                position.setLongitude(Float.valueOf(set.getString("Longitude")));
+                position.setLatitude(Float.valueOf(set.getString("Latitude")));
+                position.setRadius(Float.valueOf(set.getString("Radius")));
                 return position;
             }
         } catch (SQLException e) {
@@ -67,13 +65,12 @@ public class PositionRepository {
         Connection connection = connector.getConnection();
         UUID newId = UUID.randomUUID();
     
-        String query = "Insert into [Position] ([Id],[TopLatitude],[TopLongitude],[BottomLatitude],[BottomLongitude]) values (?, ?, ?, ?, ?)";
+        String query = "Insert into [Position] ([Id],[Latitude],[Longitude],[Radius]) values (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, newId.toString());
-            preparedStatement.setString(2, String.valueOf(position.getTopLatitude()));
-            preparedStatement.setString(3, String.valueOf(position.getTopLongitude()));
-            preparedStatement.setString(4, String.valueOf(position.getBottomLatitude()));
-            preparedStatement.setString(5, String.valueOf(position.getBottomLongitude()));
+            preparedStatement.setString(2, String.valueOf(position.getLatitude()));
+            preparedStatement.setString(3, String.valueOf(position.getLongitude()));
+            preparedStatement.setString(4, String.valueOf(position.getRadius()));
             preparedStatement.executeUpdate();            
         } catch (SQLException e) {
             throw new SQLException("Unable to create position");
@@ -85,13 +82,12 @@ public class PositionRepository {
     public Position Put(UUID id, Position position) throws SQLException {
         Connection connection = connector.getConnection();
     
-        String query = "Update [Position] SET [TopLatitude] = ?, [TopLongitude] = ?, [BottomLatitude] = ?, [BottomLongitude] = ? where [Id] = ?";
+        String query = "Update [Position] SET [Latitude] = ?, [Longitude] = ?, [Radius] = ? where [Id] = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, String.valueOf(position.getTopLatitude()));
-            preparedStatement.setString(2, String.valueOf(position.getTopLongitude()));
-            preparedStatement.setString(3, String.valueOf(position.getBottomLatitude()));
-            preparedStatement.setString(4, String.valueOf(position.getBottomLongitude()));
-            preparedStatement.setString(5, id.toString());
+            preparedStatement.setString(1, String.valueOf(position.getLatitude()));
+            preparedStatement.setString(2, String.valueOf(position.getLongitude()));
+            preparedStatement.setString(3, String.valueOf(position.getRadius()));
+            preparedStatement.setString(4, id.toString());
             preparedStatement.executeUpdate();            
         } catch (SQLException e) {
             throw new SQLException("Unable to update position");

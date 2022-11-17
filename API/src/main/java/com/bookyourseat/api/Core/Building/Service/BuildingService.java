@@ -34,6 +34,15 @@ public class BuildingService {
         }
     }
 
+    public List<Building> GetByCompanyId(UUID id) {
+        try {
+            return buildingRepository.GetByCompanyId(id);
+        }
+        catch(SQLException e) {
+            return new ArrayList<Building>();
+        }
+    }
+
     public Building Post(Building building) {
         try {
             if(!ValidateBuildingInfo(building))
