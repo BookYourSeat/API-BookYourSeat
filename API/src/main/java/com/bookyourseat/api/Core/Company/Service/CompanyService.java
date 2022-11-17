@@ -1,11 +1,12 @@
 package com.bookyourseat.api.Core.Company.Service;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.bookyourseat.api.Core.Building.Model.Building;
@@ -17,14 +18,16 @@ import com.bookyourseat.api.Core.Company.Repository.CompanyRepository;
 public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
     private BuildingService buildingService;
     
-    public List<Company> GetAll() {
+    public ResponseEntity<List<Company>> GetAll() {
         try {
-            return companyRepository.GetAll();
+            List<Company> companies = companyRepository.GetAll();
+            return new ResponseEntity<List<Company>>(companies,HttpStatus.OK);
         }
         catch(SQLException e) {
-            return new ArrayList<Company>();
+            return new ResponseEntity<List<Company>>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -61,16 +64,17 @@ public class CompanyService {
         }
     }
 
-    public Company Delete(UUID id) {
+    public ResponseEntity<Company> Delete(UUID id) {
         try {
             if(!ValidateCompanyExists(id))
-                return new Company();
+                return new ResponseEntity<Company>(HttpStatus.BAD_REQUEST);
             if(!ValidateNoBuildings(id))
-                return new Company();
-            return companyRepository.Delete(id);
+                return new ResponseEntity<Company>(HttpStatus.BAD_REQUEST);
+            Company company = companyRepository.Delete(id);
+            return new ResponseEntity<Company>(company,HttpStatus.OK);
         }
         catch(SQLException e) {
-            return new Company();
+            return new ResponseEntity<Company>(HttpStatus.BAD_REQUEST);
         }
     }
 

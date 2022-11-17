@@ -62,7 +62,7 @@ public class BuildingRepository {
     public List<Building> GetByCompanyId(UUID id) throws SQLException {
         Connection connection = connector.getConnection();
     
-        String query = "SELECT * FROM [Building] WHERE Id = ?";
+        String query = "SELECT * FROM [Building] WHERE [IdCompany] = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, id.toString());
             ResultSet set = preparedStatement.executeQuery();
