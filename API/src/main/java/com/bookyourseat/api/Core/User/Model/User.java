@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
 
-    
     private UUID Id;
     private String FirstName;
     private String LastName;
