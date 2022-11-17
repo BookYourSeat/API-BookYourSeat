@@ -1,10 +1,10 @@
-package com.bookyourseat.api.Core.SeatType.Model;
+package com.bookyourseat.api.Core.Company.Model;
 
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SeatType {
+public class Company {
     private UUID Id;
     private String Description;
 

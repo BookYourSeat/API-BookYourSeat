@@ -70,7 +70,7 @@ public class SeatTypeService {
     }
 
     private Boolean ValidateSeatTypeInfo(SeatType seatType){
-        if(seatType.getDescription().toString().isBlank())
+        if(seatType.getDescription().isBlank())
             return false;
         return true;
     }

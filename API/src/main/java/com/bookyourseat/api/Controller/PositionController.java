@@ -13,37 +13,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookyourseat.api.Core.Room.Model.Room;
-import com.bookyourseat.api.Core.Room.Service.RoomService;
+import com.bookyourseat.api.Core.Position.Model.Position;
+import com.bookyourseat.api.Core.Position.Service.PositionService;
 
 @RestController
-@RequestMapping("Room")
-public class RoomController {
+@RequestMapping("Position")
+public class PositionController {
     @Autowired
-    private RoomService roomService;
-    
+    private PositionService positionService;
+
     @GetMapping
-    public List<Room> Get() {
-        return roomService.GetAll();
+    public List<Position> Get() {
+        return positionService.GetAll();
     }
 
     @GetMapping("{id}")
-    public Room GetById(@PathVariable UUID id) {
-        return roomService.GetById(id);
+    public Position GetById(@PathVariable UUID id) {
+        return positionService.GetById(id);
     }
 
     @PostMapping
-    public Boolean Post(@RequestBody Room room){
-        return roomService.Post(room);
+    public Boolean Post(@RequestBody Position newPosition){
+        return positionService.Post(newPosition);
     }
 
     @PutMapping("{id}")
-    public Boolean Put(@PathVariable UUID id, @RequestBody Room room){
-        return roomService.Put(id, room);
+    public Boolean Put(@PathVariable UUID id, @RequestBody Position position){
+        return positionService.Put(id, position);
     }
 
     @DeleteMapping("{id}")
     public Boolean Delete(@PathVariable UUID id){
-        return roomService.Delete(id);
+        return positionService.Delete(id);
     }
+
 }
