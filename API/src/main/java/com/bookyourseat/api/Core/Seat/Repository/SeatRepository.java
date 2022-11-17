@@ -61,22 +61,25 @@ public class SeatRepository {
         return new Seat();
     }
 
-    public Boolean Post(Seat seat) throws SQLException {
+    public Seat Post(Seat seat) throws SQLException {
         Connection connection = connector.getConnection();
+        UUID newId = UUID.randomUUID();
     
-        String query = "Insert into [Seat] ([Id],[IdPosition],[IdRoom],[IdType]) values (NEWID(), ?, ?, ?)";
+        String query = "Insert into [Seat] ([Id],[IdPosition],[IdRoom],[IdType]) values (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, seat.getIdPosition().toString());
-            preparedStatement.setString(2, seat.getIdRoom().toString());
-            preparedStatement.setString(3, seat.getIdType().toString());
+            preparedStatement.setString(1, newId.toString());
+            preparedStatement.setString(2, seat.getIdPosition().toString());
+            preparedStatement.setString(3, seat.getIdRoom().toString());
+            preparedStatement.setString(4, seat.getIdType().toString());
             preparedStatement.executeUpdate();            
         } catch (SQLException e) {
             throw new SQLException("Unable to create seat");
         }
-        return true;
+        seat.setId(newId);
+        return seat;
     }
 
-    public Boolean Put(UUID id, Seat seat) throws SQLException {
+    public Seat Put(UUID id, Seat seat) throws SQLException {
         Connection connection = connector.getConnection();
     
         String query = "Update [Seat] SET [IdPosition] = ?, [IdRoom] = ?,[IdType] = ? where [Id] = ?";
@@ -89,10 +92,11 @@ public class SeatRepository {
         } catch (SQLException e) {
             throw new SQLException("Unable to update seat");
         }
-        return true;
+        seat.setId(id);
+        return seat;
     }
 
-    public Boolean Delete(UUID id) throws SQLException {
+    public Seat Delete(UUID id) throws SQLException {
         Connection connection = connector.getConnection();
     
         String query = "Delete from [Seat] where [Id] = ?";
@@ -102,6 +106,8 @@ public class SeatRepository {
         } catch (SQLException e) {
             throw new SQLException("Unable to delete seat");
         }
-        return true;
+        Seat seat = new Seat();
+        seat.setId(id);
+        return seat;
     }
 }

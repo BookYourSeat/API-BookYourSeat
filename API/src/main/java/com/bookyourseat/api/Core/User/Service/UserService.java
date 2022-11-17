@@ -35,40 +35,40 @@ public class UserService {
         }
     }
 
-    public Boolean Post(User user) {
+    public User Post(User user) {
         try {
             if(!ValidateUserInfo(user))
-                return false;
+                return new User();
             if(!UniqueEmail(user.getEmail()))
-                return false;
+                return new User();
             return userRepository.Post(user);
         }
         catch(SQLException e) {
-            return false;
+            return new User();
         }
     }
 
-    public Boolean Put(UUID id, User user) {
+    public User Put(UUID id, User user) {
         try {
             if(!ValidateUserInfo(user))
-                return false;
+                return new User();
             if(!ValidateUserExists(id))
-                return false;
+                return new User();
             return userRepository.Put(id, user);
         }
         catch(SQLException e) {
-            return false;
+            return new User();
         }
     }
 
-    public Boolean Delete(UUID id) {
+    public User Delete(UUID id) {
         try {
             if(!ValidateUserExists(id))
-                return false;
+                return new User();
             return userRepository.Delete(id);
         }
         catch(SQLException e) {
-            return false;
+            return new User();
         }
     }
 

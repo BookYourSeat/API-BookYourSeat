@@ -33,17 +33,17 @@ public class SeatTypeController {
     }
 
     @PostMapping
-    public Boolean Post(@RequestBody SeatType newSeatType){
+    public SeatType Post(@RequestBody SeatType newSeatType){
         return seatTypeService.Post(newSeatType);
     }
 
     @PutMapping("{id}")
-    public Boolean Put(@PathVariable UUID id, @RequestBody SeatType seatType){
+    public SeatType Put(@PathVariable UUID id, @RequestBody SeatType seatType){
         return seatTypeService.Put(id, seatType);
     }
 
     @DeleteMapping("{id}")
-    public Boolean Delete(@PathVariable UUID id){
+    public SeatType Delete(@PathVariable UUID id){
         return seatTypeService.Delete(id);
     }
     

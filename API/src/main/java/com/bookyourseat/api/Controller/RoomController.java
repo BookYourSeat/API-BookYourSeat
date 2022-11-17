@@ -33,17 +33,17 @@ public class RoomController {
     }
 
     @PostMapping
-    public Boolean Post(@RequestBody Room room){
+    public Room Post(@RequestBody Room room){
         return roomService.Post(room);
     }
 
     @PutMapping("{id}")
-    public Boolean Put(@PathVariable UUID id, @RequestBody Room room){
+    public Room Put(@PathVariable UUID id, @RequestBody Room room){
         return roomService.Put(id, room);
     }
 
     @DeleteMapping("{id}")
-    public Boolean Delete(@PathVariable UUID id){
+    public Room Delete(@PathVariable UUID id){
         return roomService.Delete(id);
     }
 }

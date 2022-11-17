@@ -63,23 +63,26 @@ public class PositionRepository {
         return new Position();
     }
 
-    public Boolean Post(Position position) throws SQLException {
+    public Position Post(Position position) throws SQLException {
         Connection connection = connector.getConnection();
+        UUID newId = UUID.randomUUID();
     
-        String query = "Insert into [Position] ([Id],[TopLatitude],[TopLongitude],[BottomLatitude],[BottomLongitude]) values (NEWID(), ?, ?, ?, ?)";
+        String query = "Insert into [Position] ([Id],[TopLatitude],[TopLongitude],[BottomLatitude],[BottomLongitude]) values (?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, String.valueOf(position.getTopLatitude()));
-            preparedStatement.setString(2, String.valueOf(position.getTopLongitude()));
-            preparedStatement.setString(3, String.valueOf(position.getBottomLatitude()));
-            preparedStatement.setString(4, String.valueOf(position.getBottomLongitude()));
+            preparedStatement.setString(1, newId.toString());
+            preparedStatement.setString(2, String.valueOf(position.getTopLatitude()));
+            preparedStatement.setString(3, String.valueOf(position.getTopLongitude()));
+            preparedStatement.setString(4, String.valueOf(position.getBottomLatitude()));
+            preparedStatement.setString(5, String.valueOf(position.getBottomLongitude()));
             preparedStatement.executeUpdate();            
         } catch (SQLException e) {
             throw new SQLException("Unable to create position");
         }
-        return true;
+        position.setId(newId);
+        return position;
     }
 
-    public Boolean Put(UUID id, Position position) throws SQLException {
+    public Position Put(UUID id, Position position) throws SQLException {
         Connection connection = connector.getConnection();
     
         String query = "Update [Position] SET [TopLatitude] = ?, [TopLongitude] = ?, [BottomLatitude] = ?, [BottomLongitude] = ? where [Id] = ?";
@@ -93,10 +96,11 @@ public class PositionRepository {
         } catch (SQLException e) {
             throw new SQLException("Unable to update position");
         }
-        return true;
+        position.setId(id);
+        return position;
     }
 
-    public Boolean Delete(UUID id) throws SQLException {
+    public Position Delete(UUID id) throws SQLException {
         Connection connection = connector.getConnection();
     
         String query = "Delete from [Position] where [Id] = ?";
@@ -106,6 +110,8 @@ public class PositionRepository {
         } catch (SQLException e) {
             throw new SQLException("Unable to delete position");
         }
-        return true;
+        Position position = new Position();
+        position.setId(id);
+        return position;
     }
 }

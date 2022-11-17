@@ -63,24 +63,27 @@ public class UserRepository {
         return new User();
     }
 
-    public Boolean Post(User user) throws SQLException {
+    public User Post(User user) throws SQLException {
         Connection connection = connector.getConnection();
+        UUID newId = UUID.randomUUID();
 
-        String query = "Insert into [User] ([Id],[FirstName],[LastName],[Email],[Password]) VALUES (NEWID(), ?, ?, ?, ?)";
+        String query = "Insert into [User] ([Id],[FirstName],[LastName],[Email],[Password]) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(1, newId.toString());
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getLastName());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getPassword());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
             throw new SQLException("Unable to create user");
         }
-        return true;
+        user.setId(newId);
+        return user;
     }
 
-    public Boolean Put(UUID id, User user) throws SQLException {
+    public User Put(UUID id, User user) throws SQLException {
         Connection connection = connector.getConnection();
 
         String query = "Update [User] SET [FirstName] = ?,[LastName] = ?,[Email] = ?,[Password] = ? where [Id] = ?";
@@ -94,10 +97,11 @@ public class UserRepository {
         } catch (SQLException e) {
             throw new SQLException("Unable to update user");
         }
-        return true;
+        user.setId(id);
+        return user;
     }
 
-    public Boolean Delete(UUID id) throws SQLException {
+    public User Delete(UUID id) throws SQLException {
         Connection connection = connector.getConnection();
     
         String query = "Delete from [User] where [Id] = '" + id.toString() + "'";
@@ -106,6 +110,8 @@ public class UserRepository {
         } catch (SQLException e) {
             throw new SQLException("Unable to delete user");
         }
-        return true;
+        User user = new User();
+        user.setId(id);
+        return user;
     }
 }

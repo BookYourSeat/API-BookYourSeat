@@ -57,20 +57,23 @@ public class SeatTypeRepository {
         return new SeatType();
     }
 
-    public Boolean Post(SeatType seatType) throws SQLException {
+    public SeatType Post(SeatType seatType) throws SQLException {
         Connection connection = connector.getConnection();
+        UUID newId = UUID.randomUUID();
     
-        String query = "Insert into [SeatType] ([Id],[Description]) values (NEWID(), ?)";
+        String query = "Insert into [SeatType] ([Id],[Description]) values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, seatType.getDescription());
+            preparedStatement.setString(1, newId.toString());
+            preparedStatement.setString(2, seatType.getDescription());
             preparedStatement.executeUpdate();            
         } catch (SQLException e) {
             throw new SQLException("Unable to create seatType");
         }
-        return true;
+        seatType.setId(newId);
+        return seatType;
     }
 
-    public Boolean Put(UUID id, SeatType seatType) throws SQLException {
+    public SeatType Put(UUID id, SeatType seatType) throws SQLException {
         Connection connection = connector.getConnection();
     
         String query = "Update [SeatType] SET [Description] = ? where [Id] = ?";
@@ -81,10 +84,11 @@ public class SeatTypeRepository {
         } catch (SQLException e) {
             throw new SQLException("Unable to update seatType");
         }
-        return true;
+        seatType.setId(id);
+        return seatType;
     }
 
-    public Boolean Delete(UUID id) throws SQLException {
+    public SeatType Delete(UUID id) throws SQLException {
         Connection connection = connector.getConnection();
     
         String query = "Delete from [SeatType] where [Id] = ?";
@@ -94,6 +98,8 @@ public class SeatTypeRepository {
         } catch (SQLException e) {
             throw new SQLException("Unable to delete seatType");
         }
-        return true;
+        SeatType seatType = new SeatType();
+        seatType.setId(id);
+        return seatType;
     }
 }
