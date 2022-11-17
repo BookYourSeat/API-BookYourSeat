@@ -64,6 +64,30 @@ public class BookRepository {
         return new Book();
     }
 
+    public List<Book> GetBySeatAndDate(UUID seatId, Date date) throws SQLException {
+        Connection connection = connector.getConnection();
+    
+        String query = "SELECT * FROM [Book] where [IdSeat] = ? and [BookedAt] > ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, seatId.toString());
+            preparedStatement.setString(2, date.toString());
+            ResultSet set = preparedStatement.executeQuery();
+            List<Book> books = new ArrayList<Book>();
+            while (set.next()) {
+                Book book = new Book();
+                book.setId(UUID.fromString(set.getString("Id")));
+                book.setIdSeat(UUID.fromString(set.getString("IdSeat")));
+                book.setIdUser(UUID.fromString(set.getString("IdUser")));
+                book.setBookedAt(Date.valueOf(set.getString("BookedAt")));
+                book.setBookedUntil(Date.valueOf(set.getString("BookedUntil")));
+                books.add(book);
+            }
+            return books;
+        } catch (SQLException e) {
+            throw new SQLException("Unable to get books");
+        }
+    }
+
     public Book Post(Book book) throws SQLException {
         Connection connection = connector.getConnection();
         UUID newId = UUID.randomUUID();

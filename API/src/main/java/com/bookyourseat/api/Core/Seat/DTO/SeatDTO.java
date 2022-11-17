@@ -1,7 +1,9 @@
 package com.bookyourseat.api.Core.Seat.DTO;
 
+import java.util.List;
 import java.util.UUID;
 
+import com.bookyourseat.api.Core.Book.Model.Book;
 import com.bookyourseat.api.Core.Position.Model.Position;
 import com.bookyourseat.api.Core.Seat.Model.Seat;
 import com.bookyourseat.api.Core.SeatType.Model.SeatType;
@@ -21,6 +23,9 @@ public class SeatDTO {
 
     //Type
     private String Description;
+
+    //Books
+    private List<Book> books;
 
     public SeatDTO(){
     }
@@ -119,5 +124,14 @@ public class SeatDTO {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    @JsonProperty("Books")
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks( List<Book> books) {
+        this.books = books;
     }
 }

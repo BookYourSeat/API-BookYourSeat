@@ -2,6 +2,7 @@ package com.bookyourseat.api.Core.Seat.Model;
 
 import java.util.UUID;
 
+import com.bookyourseat.api.Core.Seat.DTO.SeatAndPositionPostDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Seat {
@@ -10,6 +11,13 @@ public class Seat {
     private UUID IdRoom;
     private UUID IdPosition;
     
+    public Seat(){}
+
+    public Seat(SeatAndPositionPostDTO seatAndPositionPostDTO){
+        this.IdType = seatAndPositionPostDTO.getSeat().getIdType();
+        this.IdRoom = seatAndPositionPostDTO.getSeat().getIdRoom();
+    }
+
     @JsonProperty("Id")
     public UUID getId() {
         return Id;
