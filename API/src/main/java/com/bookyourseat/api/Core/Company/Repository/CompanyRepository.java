@@ -95,6 +95,7 @@ public class CompanyRepository {
             preparedStatement.setString(1, id.toString());
             preparedStatement.executeUpdate();            
         } catch (SQLException e) {
+            System.out.println(e);
             throw new SQLException("Unable to delete company");
         }
         Company company = new Company();
