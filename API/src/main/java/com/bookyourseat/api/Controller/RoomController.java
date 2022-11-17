@@ -35,7 +35,7 @@ public class RoomController {
         return roomService.GetById(id);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("MapDto/{id}")
     public RoomDTO GetRoomDTO(@PathVariable UUID id) {
         return roomService.GetRoomDTO(id);
     }

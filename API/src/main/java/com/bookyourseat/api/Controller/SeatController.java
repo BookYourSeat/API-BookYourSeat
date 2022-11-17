@@ -49,7 +49,7 @@ public class SeatController {
         return seatService.Post(newSeat);
     }
 
-    @PostMapping
+    @PostMapping("WithPosition")
     public SeatDTO PostWithPosition(@RequestBody Seat newSeat, @RequestBody Position position){
         return seatService.PostWithPosition(newSeat, position);
     }
